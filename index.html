@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7월 9일 업데이트노트 요약</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef3f6;
+    --card:#ffffff;
+    --ink:#1c2b33;
+    --ink-soft:#51646e;
+    --line:#d5e0e6;
+    --accent:#0e7a8a;
+    --accent-soft:#e0f0f3;
+    --header-grad:linear-gradient(135deg,#0e7a8a,#134b5f);
+    --tip-bg:#134b5f;
+    --tip-ink:#eaf6f9;
+    --shadow:0 2px 10px rgba(19,75,95,.10);
+  }
+  html[data-theme="dark"]{
+    --bg:#0b1620;
+    --card:#12212d;
+    --ink:#dcebf2;
+    --ink-soft:#8fa8b5;
+    --line:#22384644;
+    --accent:#4fc3d9;
+    --accent-soft:#173442;
+    --header-grad:linear-gradient(135deg,#123a4a,#0c2431);
+    --tip-bg:#1d4457;
+    --tip-ink:#e7f5fa;
+    --shadow:0 2px 12px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Noto Sans KR',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    transition:background .3s,color .3s;
+    padding-bottom:40px;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 16px}
+
+  /* ── 상단 헤더 ── */
+  header.hero{
+    background:var(--header-grad);
+    color:#fff;
+    padding:36px 16px 30px;
+    margin-bottom:24px;
+  }
+  header.hero .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+  .hero-eyebrow{
+    font-size:12px;letter-spacing:.35em;opacity:.75;margin-bottom:8px;font-weight:500;
+  }
+  h1{
+    font-family:'Gowun Batang',serif;
+    font-size:clamp(24px,5vw,36px);
+    font-weight:700;
+    line-height:1.3;
+  }
+  .hero-sub{font-size:13px;opacity:.8;margin-top:6px}
+
+  /* ── 다크모드 토글 ── */
+  .theme-toggle{
+    display:flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.14);
+    border-radius:99px;padding:6px 12px;
+    font-size:13px;color:#fff;user-select:none;
+  }
+  .switch{
+    position:relative;width:46px;height:24px;flex-shrink:0;
+    background:rgba(0,0,0,.35);border-radius:99px;cursor:pointer;
+    border:none;padding:0;transition:background .3s;
+  }
+  .switch::after{
+    content:'☀️';font-size:13px;line-height:20px;text-align:center;
+    position:absolute;top:2px;left:2px;width:20px;height:20px;
+    background:#fff;border-radius:50%;transition:transform .25s;
+  }
+  html[data-theme="dark"] .switch::after{transform:translateX(22px);content:'🌙'}
+
+  /* ── 안내문 ── */
+  .hint{
+    font-size:13px;color:var(--ink-soft);
+    background:var(--accent-soft);
+    border-left:4px solid var(--accent);
+    padding:10px 14px;border-radius:0 8px 8px 0;
+    margin-bottom:20px;
+  }
+
+  /* ── 아코디언 ── */
+  .acc{margin-bottom:14px;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);background:var(--card);transition:background .3s}
+  .acc-head{
+    width:100%;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:18px 20px;
+    background:var(--card);color:var(--ink);
+    font-family:'Gowun Batang',serif;
+    font-size:clamp(17px,3.6vw,21px);font-weight:700;
+    text-align:left;transition:background .2s,color .3s;
+  }
+  .acc-head:hover{background:var(--accent-soft)}
+  .acc-head .num{
+    color:var(--accent);font-family:'Noto Sans KR',sans-serif;
+    font-size:12px;font-weight:700;letter-spacing:.15em;
+    display:block;margin-bottom:2px;
+  }
+  .chev{
+    flex-shrink:0;width:30px;height:30px;border-radius:50%;
+    background:var(--accent-soft);color:var(--accent);
+    display:grid;place-items:center;font-size:14px;
+    transition:transform .3s;
+  }
+  .acc.open .chev{transform:rotate(180deg)}
+  .acc-body{
+    max-height:0;overflow:hidden;transition:max-height .45s ease;
+  }
+  .acc.open .acc-body{max-height:4200px}
+  .acc-inner{padding:4px 20px 22px;border-top:1px solid var(--line)}
+
+  h3{
+    font-size:15px;color:var(--accent);
+    margin:20px 0 8px;font-weight:700;
+    display:flex;align-items:center;gap:8px;
+  }
+  h3::before{content:'';width:8px;height:8px;background:var(--accent);border-radius:2px;transform:rotate(45deg)}
+
+  ul{list-style:none}
+  li.item{
+    position:relative;
+    font-size:14.5px;
+    padding:7px 10px 7px 26px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .15s;
+  }
+  li.item::before{
+    content:'›';position:absolute;left:10px;color:var(--accent);font-weight:700;
+  }
+  li.item:hover{background:var(--accent-soft)}
+  li.item.tip-on{background:var(--accent-soft)}
+  .sub{color:var(--ink-soft);font-size:13px;display:block;margin-top:2px}
+
+  table{
+    width:100%;border-collapse:collapse;margin:10px 0 4px;
+    font-size:13.5px;
+  }
+  th,td{border:1px solid var(--line);padding:8px 6px;text-align:center}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700}
+  .tbl-note{font-size:12px;color:var(--ink-soft);margin-top:4px}
+
+  /* ── 원문 툴팁 ── */
+  .tipbox{
+    display:none;
+    margin:8px 0 4px;
+    background:var(--tip-bg);color:var(--tip-ink);
+    border-radius:10px;padding:12px 14px;
+    font-size:13px;line-height:1.65;
+    white-space:pre-line;
+    position:relative;
+    cursor:default;
+  }
+  .tipbox::before{
+    content:'📜 공식 업데이트노트 원문';
+    display:block;font-weight:700;font-size:11.5px;
+    letter-spacing:.08em;opacity:.75;margin-bottom:6px;
+  }
+  li.item.tip-on + .tipbox{display:block}
+  @media (hover:hover){
+    li.item:hover + .tipbox{display:block}
+  }
+
+  /* ── 푸터 ── */
+  footer{
+    margin-top:36px;text-align:center;
+    font-size:13px;color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:22px;
+  }
+  footer .guild{
+    font-family:'Gowun Batang',serif;
+    font-size:15px;font-weight:700;color:var(--ink);
+    margin-bottom:6px;
+  }
+  footer a{
+    display:inline-block;margin-top:12px;
+    color:#fff;background:var(--accent);
+    text-decoration:none;font-weight:700;
+    padding:10px 22px;border-radius:99px;
+    transition:opacity .2s;
+  }
+  footer a:hover{opacity:.85}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="hero-eyebrow">MABINOGI MOBILE · UPDATE</div>
+      <h1>7월 9일 업데이트노트 요약</h1>
+      <div class="hero-sub">2026.07.09(목) 정기점검 업데이트 기준</div>
+    </div>
+    <div class="theme-toggle">
+      <span>다크 모드</span>
+      <button class="switch" id="themeSwitch" aria-label="다크 모드 전환"></button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hint">
+    제목을 누르면 내용이 펼쳐져요. 각 항목에 마우스를 올리거나(모바일은 터치) 공식 업데이트노트 <b>원문</b>을 확인할 수 있어요.
+  </div>
+
+  <!-- ═══════════ 1. 신규 콘텐츠 ═══════════ -->
+  <section class="acc" id="acc1">
+    <button class="acc-head" onclick="toggleAcc('acc1')">
+      <span><span class="num">SECTION 01</span>신규 콘텐츠 — 룬다 어비스</span>
+      <span class="chev">▼</span>
+    </button>
+    <div class="acc-body"><div class="acc-inner">
+
+      <h3>신규 난이도 추가</h3>
+      <ul>
+        <li class="item">룬다 어비스에 <b>'매우 어려움'</b>과 <b>'지옥1'</b> 난이도 추가 — 2026년 7월 13일(월) 오전 6시 오픈
+          <span class="sub">원래 지옥 난이도를 먼저 낼 계획이었으나, 시즌2 이후 모험가 성장 속도가 예상보다 빨라 난이도 공백을 막기 위해 '매우 어려움'을 앞당겨 오픈</span>
+        </li>
+        <div class="tipbox">룬다 어비스에 '매우 어려움'과 '지옥1' 난이도가 추가됩니다.
+* 2026년 7월 13일(월) 오전 6시 오픈됩니다.
+
+(오픈 일정 변경 사유 안내 중) 당초 계획은 최상위 모험가분들을 위한 [지옥] 난이도를 먼저 선보인 후, 순차적으로 [매우 어려움] 난이도를 추가하는 일정이었습니다. 하지만 시즌 2 오픈 이후 데이터를 분석한 결과, 모험가 여러분의 성장 속도가 예상보다 훨씬 빠르게 나타났습니다. (중략) 이에 단계적인 도전 목표를 제공하고 난이도 간의 격차를 완화하고자, [매우 어려움] 난이도의 투입 일정을 앞당겨 조기에 선보이게 되었습니다.</div>
+      </ul>
+
+      <h3>입장 조건</h3>
+      <ul>
+        <li class="item">난이도별 입장 조건은 아래 표 참고</li>
+        <div class="tipbox">[룬다 어비스 매우 어려움/지옥1 입장 조건]
+난이도 / 필요 전투력 / 권장 전투력 / 압도 전투력 / 필요 마도 저항 / 마도 압력
+매우 어려움 / 76,000 / 80,000 / 92,000 / 2,200 / 2,700
+지옥1 / 87,500 / 92,000 / 105,000 / 3,500 / 4,400</div>
+      </ul>
+      <table>
+        <tr><th>난이도</th><th>필요 전투력</th><th>권장</th><th>압도</th><th>필요 마도저항</th><th>마도 압력</th></tr>
+        <tr><td>매우 어려움</td><td>76,000</td><td>80,000</td><td>92,000</td><td>2,200</td><td>2,700</td></tr>
+        <tr><td>지옥1</td><td>87,500</td><td>92,000</td><td>105,000</td><td>3,500</td><td>4,400</td></tr>
+      </table>
+
+      <ul>
+        <li class="item">파티원이 조건 미달이어도 <b>파티장이 조건을 충족하면 함께 입장 가능</b></li>
+        <div class="tipbox">파티원이 필요 마도 저항 또는 필요 전투력 미만인 경우에도, 파티장이 조건을 충족하면 함께 입장하실 수 있습니다.
+- 필요 입장 조건을 만족하지 못한 경우 어비스에 입장하실 수 없습니다.</div>
+
+        <li class="item"><b>지옥1</b>은 혼자하기 모드 불가, 함께하기 모드에서도 우연한 만남 이용 불가
+          <span class="sub">혼자하기 모드는 입문 · 어려움 · 매우 어려움 난이도에서만 이용 가능</span>
+        </li>
+        <div class="tipbox">지옥1 난이도에서는 혼자하기 모드를 이용하실 수 없으며, 함께하기 모드에서도 우연한 만남을 이용할 수 없습니다.
+* 혼자하기 모드는 입문, 어려움, 매우 어려움 난이도에서 이용하실 수 있습니다.</div>
+
+        <li class="item">마도 압력 수치 미만이면 우연한 만남으로 어비스 입장 불가</li>
+        <div class="tipbox">어비스 던전 입장 시 UI에 표시되는 마도 저항의 마도 압력 수치 미만인 경우, 우연한 만남으로 어비스에 입장하실 수 없습니다.</div>
+      </ul>
+
+      <h3>어비스 타이머 규칙</h3>
+      <ul>
+        <li class="item">입구방 검은 벽 통과 시 타이머 시작 → 중간 보스 처치 시 정지 → 보스방 진입 시 재시작</li>
+        <div class="tipbox">- 플레이어가 입구방을 나가는 문에 존재하는 검은 벽을 지나가는 시점부터 타이머가 시작됩니다.
+- 중간 보스를 처치하는 시점에 타이머가 정지합니다.
+- 보스방 진입 시점에 다시 타이머가 시작됩니다.</div>
+
+        <li class="item">타임어택 제한시간은 <b>모든 난이도 공통 11분</b></li>
+        <div class="tipbox">어비스 타임 어택 시간 제한은 모든 난이도 공통으로 11분입니다.</div>
+      </ul>
+
+      <h3>주간 전리품 수령 기능 확장</h3>
+      <ul>
+        <li class="item">7/13(월) 첫 정산에 맞춰 주간 전리품 수령 기능 확장, 상향 재화가 <b>'마물 퇴치 증표'로 통합</b>
+          <span class="sub">이전 클리어 기록 중 가장 높은 기록 기준으로 상향 · 증표 부족 시 보유 한도 내 최적 선택 제안</span>
+        </li>
+        <div class="tipbox">- 2026년 7월 13일(월) 오전 6시 룬다 어비스 첫 정산 일정에 맞춰, 어비스 주간 전리품 수령 기능이 확장됩니다.
+- 주간 전리품 상향에 필요한 재화가 마물 퇴치 증표로 통합됩니다.
+* 이전 클리어 기록이 있는 콘텐츠 중 가장 높은 기록을 기준으로 상향됩니다.
+- 보유한 마물 퇴치 증표 수량이 부족할 경우, 보유한 한도 내에서 최적화된 선택으로 제안됩니다.
+- 기존과 동일하게 해당 퀘스트를 완료해야 이번 주 어비스 던전에 도전할 수 있습니다.</div>
+      </ul>
+
+      <h3>룬다 어비스 전리품</h3>
+      <ul>
+        <li class="item">타임어택 전리품 — 매우 어려움: 심연의 레어 미스틱 다이스(무기/방어구/장신구) 각 1, 소원 항아리 3, 심해의 화석 100 / 지옥1: 심해의 화석 20, 골드 42,000</li>
+        <div class="tipbox">[타임어택 전리품]
+매우 어려움: 심연의 레어 미스틱 다이스(3983): 무기 1 / 방어구 1 / 장신구 1, 룬다 어비스의 소원 항아리 3, 심해의 화석 100
+지옥1: 심해의 화석 20, 골드 42,000</div>
+
+        <li class="item">클리어 전리품(전 난이도 공통) — 심연의 고급~레어 미스틱 다이스(무기/방어구/장신구 각 1), 골드 100,000, 시즌 경험치 200</li>
+        <div class="tipbox">[클리어 전리품]
+모든 난이도 공통: 심연의 고급~레어 미스틱 다이스(3983): 무기 중 1개 / 방어구 중 1개 / 장신구 중 1개 각 1, 골드 100,000, 시즌 경험치 200</div>
+
+        <li class="item">클리어 특별 전리품 — 지역별 마력석(허상/포식/심해), 해연의 장비·레시피, 엘리트 요리 레시피, ★8~★10 인챈트 스크롤, ★10 신화 장비, 룬새김·룬결속 장식, 클래스 마스터 메달 등</li>
+        <div class="tipbox">[클리어 특별 전리품] (모든 난이도 동일)
+허상의 정박지: 허상의 마력석 1 / 광기의 동굴: 포식의 마력석 1 / 흩어진 물길: 심해의 마력석 1
+공통: 해연의 장비 레시피 1, 해연의 장비 1, 엘리트 요리 레시피 1, ★8~★10 방어구 인챈트 스크롤 1, ★8~★10 장신구 인챈트 스크롤 1, ★10 신화 장비 1, 룬새김 장식(★10~★10+) 중 1개, 룬결속 장식(★10~★10+) 중 1개, 클래스 마스터 메달 1, 만찬 재료: 꺼지지 않는 불 1</div>
+
+        <li class="item">반복 클리어 전리품 — 시즌 경험치 200, 마물 퇴치 증표 300, 하트 토큰 1, 골드(매우 어려움 200 / 지옥1 300)</li>
+        <div class="tipbox">[반복 클리어 전리품]
+매우 어려움: 시즌 경험치 200, 마물 퇴치 증표 300, 하트 토큰 1, 골드 200
+지옥1: 시즌 경험치 200, 마물 퇴치 증표 300, 하트 토큰 1, 골드 300</div>
+
+        <li class="item">반복 클리어 특별 전리품 — 룬새김/룬결속 장식 ★10~★10+, 모르 코르세어 코스튬 또는 패션 상자(거래가능), 지역별 마력석
+          <span class="sub">높은 난이도·함께하기 모드일수록 획득 확률 증가. 지옥 난이도부터는 마력석 확률만 난이도에 따라 증가</span>
+        </li>
+        <div class="tipbox">[반복 클리어 특별 전리품] (모든 난이도 동일 적용, 확률 획득)
+* 더 높은 난이도를 진행하시거나 함께하기 모드로 진행하실 경우, 전리품 획득 확률이 증가합니다.
+* 지옥 난이도부터는 허상의 마력석/포식의 마력석/심해의 마력석의 전리품 획득 확률만 난이도에 따라 증가하며, 그 외 전리품의 획득 확률은 매우 어려움 난이도와 동일한 확률로 획득할 수 있습니다.
+공통: 룬새김 장식 ★10 또는 ★10+ 중 1개, 룬결속 장식 ★10 또는 ★10+ 중 1개, 모르 코르세어 코스튬(1개 부위) 또는 모르 코르세어 패션 상자(거래가능) 중 1개, 클리어 지역에 따른 마력석 1</div>
+
+        <li class="item">주간 전리품 — 심연의 레어 미스틱 다이스 각 3, 소원 항아리 3, 심해의 화석 100 + 주머니 1, 룬의 파편 200, 미스틱 던전 차원 열쇠 조각, 미지의 룬 ★10 조각(무기2/방어구3/장신구2/엠블럼1), ★10 초월의 정수 조각 10, 공명의 도안(펫 장비) 1 등
+          <span class="sub">'매우 어려움'과 '지옥1'의 주간 전리품은 동일</span>
+        </li>
+        <div class="tipbox">[주간 전리품] (매우 어려움과 지옥1 동일)
+모든 난이도 공통: 심연의 레어 미스틱 다이스(3983): 무기 3 / 방어구 3 / 장신구 3
+매우 어려움~지옥1: 룬다 어비스의 소원 항아리 3, 심해의 화석 100, 심해의 화석 주머니 1, 룬의 파편 200, 미스틱 던전 차원 열쇠(시즌2) 조각 120, 안정된 미스틱 던전 차원 열쇠(시즌2) 조각 70, 증폭의 파편 70, 미지의 무기 룬:★10 조각 2, 미지의 방어구 룬:★10 조각 3, 미지의 장신구 룬:★10 조각 2, 미지의 엠블럼 룬:★10 조각 1, ★10 초월의 정수 조각 10, 공명의 도안(펫 장비) 1</div>
+
+        <li class="item">신규 난이도 관련 어비스 업적 추가 (오픈 일정에 맞춰 확인 가능)</li>
+        <div class="tipbox">룬다 어비스 '매우 어려움', '지옥1' 난이도 관련 업적이 추가됩니다.
+* 룬다 어비스 매우 어려움 난이도와 지옥1 난이도가 오픈되는 일정에 맞춰 확인하실 수 있습니다.</div>
+      </ul>
+
+    </div></div>
+  </section>
+
+  <!-- ═══════════ 2. 클래스/룬 ═══════════ -->
+  <section class="acc" id="acc2">
+    <button class="acc-head" onclick="toggleAcc('acc2')">
+      <span><span class="num">SECTION 02</span>클래스 / 룬</span>
+      <span class="chev">▼</span>
+    </button>
+    <div class="acc-body"><div class="acc-inner">
+
+      <h3>공통</h3>
+      <ul>
+        <li class="item">'침식' 유발 방어구 룬의 효과 설명 개선
+          <span class="sub">대상: 흐릿한 현상 · 잿빛 장막 · 금 간 봉인 · 무너진 경계 · 황무지 · 어스름</span>
+        </li>
+        <div class="tipbox">'침식' 효과를 유발하는 방어구 룬이 부여하는 효과의 설명이 개선됩니다.
+* 대상 룬: [방어구 룬: 흐릿한 현상], [방어구 룬: 잿빛 장막], [방어구 룬: 금 간 봉인], [방어구 룬: 무너진 경계], [방어구 룬: 황무지], [방어구 룬: 어스름]
+* 이전 설명: 침식과 오염은 전투 중에만 진행된다.
+* 해당 효과는 '침식' 효과를 유발하는 룬을 착용한 채 전투하면 효과가 진행되며, 지역 이동 시 해제됩니다.</div>
+
+        <li class="item">침식 100중첩 이상 상태에서 침식 룬 해제 후 지역 이동해도 효과가 안 사라지던 현상 수정</li>
+        <div class="tipbox">'침식' 효과가 100중첩 이상일 때, '침식' 계열의 룬을 해제한 상태로 지역 이동 시 효과가 사라지지 않는 현상이 수정됩니다.</div>
+
+        <li class="item">받는 회복량 감소 효과가 100% 초과 상태에서 회복 시 오류가 발생하던 현상 수정</li>
+        <div class="tipbox">받는 회복량 감소 효과가 100%를 초과한 상태에서 회복을 받았을 때 오류가 발생하는 현상이 수정됩니다.</div>
+      </ul>
+
+      <h3>전사 계열 — 대검전사</h3>
+      <ul>
+        <li class="item">'대검술'에 '무자비' 룬 적용 시 '밤의 축복'이 발동하지 않던 현상 수정
+          <span class="sub">전투 템포가 가득 차 '갈망' 효과 발동 시점에 '밤의 축복' 활성화</span>
+        </li>
+        <div class="tipbox">'대검술' 스킬에 '장신구 룬: 무자비' 적용 시, '밤의 축복'이 발동하지 않는 현상이 수정됩니다.
+* 전투 템포가 가득 차 '갈망' 효과가 발동하는 시점에 '밤의 축복'이 활성화됩니다.</div>
+
+        <li class="item">'보복' 효과 최대 <b>100중첩</b>까지 획득 가능하도록 변경</li>
+        <div class="tipbox">'보복' 효과가 최대 100 중첩까지 획득할 수 있도록 변경됩니다.</div>
+      </ul>
+
+      <h3>궁수 계열</h3>
+      <ul>
+        <li class="item">궁수: '순풍' 스킬의 제공 능력치 표기를 실제 효과에 맞게 수정</li>
+        <div class="tipbox">'순풍' 스킬의 제공 능력치 표기가 효과에 맞게 수정됩니다.</div>
+
+        <li class="item">석궁사수: 던전에서 '헬 파이어' 사용 시 이펙트가 비정상 노출되던 현상 수정</li>
+        <div class="tipbox">던전에서 '헬 파이어' 스킬 사용 시, 스킬 이펙트가 비정상적으로 노출되던 현상이 수정됩니다.</div>
+      </ul>
+
+      <h3>음유시인 계열 — 댄서</h3>
+      <ul>
+        <li class="item">'애드리브'에 '환호' 룬 적용 시, 피니쉬 단계에서 '템포' 2단계 진입하면 재사용 대기시간이 초기화되지 않던 현상 수정</li>
+        <div class="tipbox">'애드리브' 스킬에 '장신구 룬: 환호' 적용 시, '애드리브'가 피니쉬 단계일 때 '템포' 2단계에 진입하면 '애드리브'의 재사용 대기 시간이 초기화되지 않는 현상이 수정됩니다.</div>
+      </ul>
+
+    </div></div>
+  </section>
+
+  <!-- ═══════════ 3. 개선 및 수정 ═══════════ -->
+  <section class="acc" id="acc3">
+    <button class="acc-head" onclick="toggleAcc('acc3')">
+      <span><span class="num">SECTION 03</span>개선 및 수정 사항</span>
+      <span class="chev">▼</span>
+    </button>
+    <div class="acc-body"><div class="acc-inner">
+
+      <h3>NEXON NOW</h3>
+      <ul>
+        <li class="item">판매 종료된 상품의 확률 정보 제외</li>
+        <div class="tipbox">판매 종료된 상품의 확률 정보가 제외됩니다.</div>
+      </ul>
+
+      <h3>어비스</h3>
+      <ul>
+        <li class="item">광기의 동굴: 첫 전투 구역에서 몬스터를 모두 처치해도 '저주받은 폭풍갈퀴'가 사라지지 않던 현상 수정</li>
+        <div class="tipbox">룬다 어비스 '광기의 동굴'의 첫 번째 전투 구역에서 일반 몬스터가 모두 처치된 상황에서도 '저주받은 폭풍갈퀴'가 사라지지 않는 현상이 수정됩니다.</div>
+
+        <li class="item">흩어진 물길: 자동 진행 미작동 · '테로사' 행동 정지 · 일부 몬스터가 사라지는 현상 등 다수 수정</li>
+        <div class="tipbox">- 룬다 어비스 '흩어진 물길'의 첫 번째 전투 구역에서 자동 진행 시, '사하긴 정예 투창병'이 빠른 속도로 처치된 경우 잔여 몬스터와의 전투가 자동 진행되지 않는 현상이 수정됩니다.
+- 룬다 어비스 '흩어진 물길'의 세 번째 전투 구역에서 '테로사'의 행동이 간헐적으로 멈추는 현상이 수정됩니다.
+- 룬다 어비스 '흩어진 물길'에서 일부 몬스터가 간헐적으로 사라지는 현상이 수정됩니다.</div>
+      </ul>
+
+      <h3>휴면 캐릭터 전환 및 복귀</h3>
+      <ul>
+        <li class="item">7/9(목)부터 <b>매일 오전 5시</b>에 일단위로 휴면 계정 정책 적용·처리 진행
+          <span class="sub">적용된 캐릭터는 이름이 '여행중인모험가'로 변경(기존 이름 재사용 불가), 복귀 시 우편의 이름 변경권으로 변경 가능</span>
+        </li>
+        <div class="tipbox">- 2026년 7월 9일(목)부터 매일 오전 5시마다 일단위로 휴면 계정 정책 적용과 처리가 진행될 예정입니다.
+- 휴면 계정 정책이 적용된 캐릭터는 캐릭터 이름이 '여행중인모험가'로 변경되며, 기존 이름은 재사용하실 수 없습니다.
+- 휴면 계정 정책 적용 이후 해당 캐릭터로 게임 접속 시, 복귀 안내 우편의 '캐릭터 이름 변경권'을 통해 캐릭터 이름을 변경하실 수 있습니다.</div>
+      </ul>
+
+      <h3>UI 개선 및 수정</h3>
+      <ul>
+        <li class="item">스타프리즘/스타프리즘S 승급 시 '모두 승급' 버튼 노출 및 주의 안내 팝업 미노출 현상 수정</li>
+        <div class="tipbox">스타프리즘, 스타프리즘S 승급 시 '모두 승급' 버튼이 노출되고, 진행 시 [스킬 태그 재설정 주의 안내 문구] 팝업이 노출되지 않고 승급이 진행되는 현상이 수정됩니다.
+* '재료 자동 넣기' 기능을 사용하여 스타프리즘, 스타프리즘S 승급 시, '모두 승급' 버튼이 노출되지 않습니다.</div>
+
+        <li class="item">협동 미션 결과 화면의 기여도 비정상 표시 수정</li>
+        <div class="tipbox">협동 미션 결과 화면에서 획득한 기여도가 비정상적으로 표시되는 현상이 수정됩니다.</div>
+
+        <li class="item">소울스트림 UI 이용 중 다른 콘텐츠 진행 시 UI가 종료되도록 개선</li>
+        <div class="tipbox">소울스트림 UI 이용 중 다른 콘텐츠 진행 시, 소울스트림 UI가 종료되도록 개선됩니다.</div>
+
+        <li class="item">더블 루팅 선택 시 '미지의 소울 조각' · '마물 퇴치 증표' · '시즌 경험치'가 증가하지 않던 현상 수정, 총 임무 전리품 표시도 수정</li>
+        <div class="tipbox">- 던전/사냥터 입장 시, '더블 루팅'을 선택해도 획득 가능한 '미지의 소울 조각', '마물 퇴치 증표', '시즌 경험치'의 개수가 증가하지 않는 현상이 수정됩니다.
+- 던전에서 더블 루팅 선택 시, 입장 화면의 '총 임무 전리품'에 던전 클리어 전리품이 올바르게 표시되도록 수정됩니다.</div>
+
+        <li class="item">일부 캐릭터에서 NPC 몰리 · 스튜어트 상점의 일부 탭이 안 보이던 현상 수정</li>
+        <div class="tipbox">일부 캐릭터에서 NPC 몰리, NPC 스튜어트 상점의 일부 탭이 보이지 않는 현상이 수정됩니다.</div>
+
+        <li class="item">기타: 플레이 힌트 오타 수정, 모르 코르세어 드레스(남성용) → 코트(남성용) 명칭 변경, 글라스기브넨 레이드 상점 재입고 표기 수정, 출석 이벤트 상자 미리보기 불가 수정, 미감정 장비 이동 시 중복/소실 표시 수정, 메인 화면에 &lt;어비스 매우 어려움에 도전하라&gt; 영상 추가</li>
+        <div class="tipbox">- [플레이 힌트 → 44. 소울스트림] 내 일부 오타가 수정됩니다.
+- 룬다 어비스 전리품으로 획득하실 수 있는 모르 코르세어 코스튬 중 일부 패션 장비 명칭이 변경됩니다. * 모르 코르세어 드레스(남성용) → 모르 코르세어 코트(남성용)
+- 글라스기브넨 레이드 상점에 재입고 상품이 없으나 재입고 표기가 되던 현상이 수정됩니다.
+- 매일매일 행운 출석 이벤트의 '패션/펫 출석 행운 상자' 구성품 정보 미리보기가 불가능한 현상이 수정됩니다.
+- 보관함과 가방에서의 미감정 장비/도구 이동 시, 이동된 장비/도구가 가방과 보관함에 모두 존재하는 것처럼 보이거나, 사라진 것처럼 보이는 현상이 수정됩니다.
+- 메인 화면에 <어비스 매우 어려움에 도전하라> 영상이 추가됩니다.
+* 어비스 진행 조건에 따라 영상을 확인하실 수 있으며, 룬다 어비스 각 지역 3종의 매우 어려움 난이도를 '함께하기' 모드로 클리어하신 후 영상 노출이 종료됩니다.</div>
+      </ul>
+
+      <h3>캐시샵 · 우연한 만남 · 그래픽</h3>
+      <ul>
+        <li class="item">캐시샵: 해외 국가 계정으로 로그인된 스토어에서도 캐시샵 이용 가능하도록 수정</li>
+        <div class="tipbox">일부 계정에서 모바일 기기로 캐시샵 이용이 불가한 현상이 수정됩니다.
+* 한국이 아닌 국가의 계정으로 로그인된 앱스토어, 구글 플레이스토어, 갤럭시 스토어에 로그인되어 있어도 캐시샵 이용이 가능할 수 있게 수정됩니다.</div>
+
+        <li class="item">우연한 만남: 마도 압력 미달 상태에서 룬다 어비스 우연한 만남이 이용되던 현상 수정</li>
+        <div class="tipbox">룬다 어비스에서 마도 압력 수치를 달성하지 않은 상태에서 우연한 만남을 이용할 수 있던 현상이 수정됩니다.</div>
+
+        <li class="item">그래픽: 미라주 칼드레아 로브 얼굴 위치 치우침 · 특정 모자 조합 시 눈 그래픽 사라짐 · 석궁사수 승리 포즈에서 다리 노출 현상 수정</li>
+        <div class="tipbox">- 캐릭터 선택 화면에서 '미라주 칼드레아 로브'를 장착한 캐릭터의 얼굴이 아래로 치우쳐 보이던 현상이 수정됩니다.
+- 석궁사수 클래스로 디어 그레이스 드레스를 착용한 상태로 던전 클리어 화면의 석궁사수 승리 포즈에서 다리가 보이던 현상이 수정됩니다.
+- 특정 패션 모자와 '미라주 칼드레아 로브' 조합 시, 캐릭터의 눈 그래픽이 사라지는 현상이 수정됩니다.</div>
+      </ul>
+
+    </div></div>
+  </section>
+
+  <!-- ═══════════ 4. 신규 이벤트 ═══════════ -->
+  <section class="acc" id="acc4">
+    <button class="acc-head" onclick="toggleAcc('acc4')">
+      <span><span class="num">SECTION 04</span>신규 이벤트 · 종료 안내</span>
+      <span class="chev">▼</span>
+    </button>
+    <div class="acc-body"><div class="acc-inner">
+
+      <h3>신규 이벤트</h3>
+      <ul>
+        <li class="item">도전! 룬다 어비스 이벤트</li>
+        <div class="tipbox">[신규 이벤트명] 도전! 룬다 어비스 이벤트 안내
+(상세 내용은 공식 홈페이지 이벤트 공지 참고)</div>
+
+        <li class="item">다가오는 여름! 온타임 이벤트</li>
+        <div class="tipbox">[신규 이벤트명] 다가오는 여름! 온타임 이벤트 안내
+(상세 내용은 공식 홈페이지 이벤트 공지 참고)</div>
+      </ul>
+
+      <h3>기간 종료 상품 및 이벤트</h3>
+      <ul>
+        <li class="item">7/9(목) 점검 시 변경·종료되는 이벤트/상품은 정기점검 안내 공지 참고</li>
+        <div class="tipbox">7월 9일(목) 점검 시 변경 및 종료 예정인 이벤트와 주요상품 관련 상세 내용은 [7/9(목) 정기점검 안내]에서 확인하실 수 있습니다.</div>
+      </ul>
+
+    </div></div>
+  </section>
+
+  <footer>
+    <div class="guild">메이븐 서버 &lt;홀로라이브&gt; 길드 - 닥닥</div>
+    <div>이 페이지는 생성형 인공지능을 이용해 만들었습니다.</div>
+    <div>중요한 사항은 공식 업데이트노트를 확인하세요.</div>
+    <a href="https://mabinogimobile.nexon.com/News/Update/3495349" target="_blank" rel="noopener">공식 업데이트노트 바로가기 →</a>
+  </footer>
+
+</div>
+
+<script>
+  // 아코디언 토글
+  function toggleAcc(id){
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  // 다크모드 토글
+  const switchBtn = document.getElementById('themeSwitch');
+  switchBtn.addEventListener('click', () => {
+    const html = document.documentElement;
+    html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  });
+  // 시스템 설정 반영
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.dataset.theme = 'dark';
+  }
+
+  // 모바일: 항목 터치 시 원문 토글
+  document.querySelectorAll('li.item').forEach(li => {
+    li.addEventListener('click', (e) => {
+      const wasOn = li.classList.contains('tip-on');
+      document.querySelectorAll('li.item.tip-on').forEach(x => x.classList.remove('tip-on'));
+      if (!wasOn) li.classList.add('tip-on');
+      e.stopPropagation();
+    });
+  });
+  // 빈 곳 터치 시 닫기
+  document.body.addEventListener('click', () => {
+    document.querySelectorAll('li.item.tip-on').forEach(x => x.classList.remove('tip-on'));
+  });
+</script>
+</body>
+</html>
